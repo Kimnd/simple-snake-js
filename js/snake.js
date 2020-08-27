@@ -57,12 +57,12 @@ function Snake(canvas, context, point_size) {
 
 
 	this.draw = function() {
-		for (var i = this.body.length-1; i >= 0; i--) {			
-			if (i == 0) context.fillStyle = 'rgb(0,255,0)'; else context.fillStyle = 'rgb(255,0,0)';
+		for (var i = this.body.length-1; i >= 0; i--) {
+			if (i == 0) context.fillStyle = '#8FC93A'; else context.fillStyle = 'rgb(255,0,0)';
 			context.fillRect(this.body[i].x, this.body[i].y, this.point_size, this.point_size);	
 		};
 
-		context.fillStyle = 'rgb(255,0,255)';
+		context.fillStyle = '#E18335';
 		context.fillRect(this.food.x, this.food.y, this.point_size, this.point_size);	
 
 		if (this.game_over) {
@@ -103,21 +103,21 @@ function Snake(canvas, context, point_size) {
 	}
 
 
-	this.update = function() {	
-		if (this.game_over || this.game_win || this.game_paused) return;		
-		step = 10;
+	this.update = function() {
+		if (this.game_over || this.game_win || this.game_paused) return;
+		/*note: for the grid to match up, step must be the same as gameResolution in game.html*/
+		step = 5;
 		switch (this.direction) {
-			case SnakeDirections.LEFT:				
+			case SnakeDirections.LEFT:
 				if (this.body[0].x > 0) {
-					this.body.unshift(new Point(this.body[0].x - step, this.body[0].y));		
+					this.body.unshift(new Point(this.body[0].x - step, this.body[0].y));
 					this.body.pop();
 				} else { 
 					this.body[0].x = 0;
 					this.game_over = true;
 				}
 				break;
-			
-			case SnakeDirections.UP:				
+			case SnakeDirections.UP:
 				if (this.body[0].y > 0) { 					
 					this.body.unshift(new Point(this.body[0].x, this.body[0].y - step));		
 					this.body.pop();
@@ -149,6 +149,7 @@ function Snake(canvas, context, point_size) {
 		}
 
 		// check for self collision
+/*
 		if (this.body.length > 1) {
 			for (var i = 1; i < this.body.length; i++) {			
 				if (this.body[0].collideWith(this.body[i].x, this.body[i].y)) {
@@ -156,7 +157,7 @@ function Snake(canvas, context, point_size) {
 				}
 			}
 		}
-
+*/
 		if (this.body[0].collideWith(this.food.x, this.food.y)) {
 			food_x = Math.floor(getRandomRange(0, canvas.width - this.point_size) / this.point_size) * this.point_size;
 			food_y = Math.floor(getRandomRange(0, canvas.height - this.point_size) / this.point_size) * this.point_size;

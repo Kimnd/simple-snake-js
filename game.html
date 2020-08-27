@@ -1,20 +1,21 @@
 <html>
 <head>
-<title>Snake Game</title>
+	<title>Snake Game</title>
+	<script type="text/javascript" src="js/snake.js"></script>
 </head>
 <!--
 ======================================================================
 JavaScript Snake Game
-Author: delimitry
+original author: delimitry
+Edited by: Fif
 ======================================================================
 -->
-<body onload="checkCanvasIsSupported();" style="background: #000">
-<script type="text/javascript" src="js/snake.js"></script>
-<canvas id="game_canvas" style="border: solid 1px lime;"></canvas><br/>
-<button onclick="snake.init()">New game</button>
-<a style="color:white; font-family: arial; font-size: 12;">[Space] - Pause</a>
+<body onload="checkCanvasIsSupported();" style="background: grey;">
+	<canvas id="game_canvas" style="background: #003F66; border: 1px;"></canvas><br/>
+	<button onclick="snake.init()">New game</button>
+	<a style="color:white; font-family: arial; font-size: 12;">[Space] - Pause</a>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 var LEFT = 37;
 var UP = 38;
@@ -26,13 +27,18 @@ var canvas;
 var context;
 var snake;
 
+var gameWidth = 480;
+var gameHeight = 320;
+var gameResolution = 5; /*Note: for the grid to line up, gameResolution must match with step variable in snake.js*/
+
 function checkCanvasIsSupported() {
 	canvas = document.getElementById("game_canvas");
-	canvas.width = 480;
-	canvas.height = 320;	
+	canvas.width = gameWidth;
+	canvas.height = gameHeight;
 	if (canvas.getContext) {
 		context = canvas.getContext('2d');
-		snake = new Snake(canvas, context, 10);
+
+		snake = new Snake(canvas, context, 5);
 		snake.init();
 		render();
 		setInterval(render, 100);
