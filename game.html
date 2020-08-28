@@ -1,7 +1,10 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Snake Game</title>
-	<script type="text/javascript" src="js/snake.js"></script>
+  <title>Snake Game</title>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <script type="text/javascript" src="js/snake.js"></script>
 </head>
 <!--
 ======================================================================
@@ -11,11 +14,11 @@ Edited by: Fif
 ======================================================================
 -->
 <body onload="checkCanvasIsSupported();" style="background: grey;">
-	<canvas id="game_canvas" style="background: #003F66; border: 1px;"></canvas><br/>
-	<button onclick="snake.init()">New game</button>
-	<a style="color:white; font-family: arial; font-size: 12;">[Space] - Pause</a>
+  <canvas id="game_canvas" style="background: #003F66; border: 1px;"></canvas><br/>
+  <button onclick="snake.init()">New game</button>
+  <a style="color:white; font-family: arial; font-size: 12;">[Space] - Pause</a>
 
-	<script type="text/javascript">
+  <script type="text/javascript">
 
 var LEFT = 37;
 var UP = 38;
@@ -29,56 +32,56 @@ var snake;
 
 var gameWidth = 480;
 var gameHeight = 320;
-var gameResolution = 5; /*Note: for the grid to line up, gameResolution must match with step variable in snake.js*/
+var gameResolution = 10; /*Note: for the grid to line up, gameResolution must match with step variable in snake.js*/
 
 function checkCanvasIsSupported() {
-	canvas = document.getElementById("game_canvas");
-	canvas.width = gameWidth;
-	canvas.height = gameHeight;
-	if (canvas.getContext) {
-		context = canvas.getContext('2d');
+  canvas = document.getElementById("game_canvas");
+  canvas.width = gameWidth;
+  canvas.height = gameHeight;
+  if (canvas.getContext) {
+    context = canvas.getContext('2d');
 
-		snake = new Snake(canvas, context, 5);
-		snake.init();
-		render();
-		setInterval(render, 100);
-	} else {
-		alert("Sorry, but your browser doesn't support a canvas.");
-	}
+    snake = new Snake(canvas, context, gameResolution);
+    snake.init();
+    render();
+    setInterval(render, 100);
+  } else {
+    alert("Sorry, but your browser doesn't support a canvas.");
+  }
 }
 
 document.onkeydown = function(event) {
-	var keyCode;
-	if (event == null) {
-		keyCode = window.event.keyCode; 
-	} else {
-		keyCode = event.keyCode; 
-	}
-	switch (keyCode) {
-		case LEFT:
-			snake.update_direction(SnakeDirections.LEFT);
-			break; 
-		case UP:
-			snake.update_direction(SnakeDirections.UP);
-			break; 
-		case RIGHT:
-			snake.update_direction(SnakeDirections.RIGHT);
-			break; 
-		case DOWN:
-			snake.update_direction(SnakeDirections.DOWN);
-			break;
-		case SPACE:
-			snake.toggle_pause();
-			break;
-		default: 
-			break; 
-	} 
+  var keyCode;
+  if (event == null) {
+    keyCode = window.event.keyCode; 
+  } else {
+    keyCode = event.keyCode; 
+  }
+  switch (keyCode) {
+    case LEFT:
+      snake.update_direction(SnakeDirections.LEFT);
+      break; 
+    case UP:
+      snake.update_direction(SnakeDirections.UP);
+      break; 
+    case RIGHT:
+      snake.update_direction(SnakeDirections.RIGHT);
+      break; 
+    case DOWN:
+      snake.update_direction(SnakeDirections.DOWN);
+      break;
+    case SPACE:
+      snake.toggle_pause();
+      break;
+    default: 
+      break; 
+  } 
 }
 
 function render() {
-	context.clearRect(0, 0, canvas.width , canvas.height);
-	snake.update();
-	snake.draw();
+  context.clearRect(0, 0, canvas.width , canvas.height);
+  snake.update();
+  snake.draw();
 }
 
 </script>
